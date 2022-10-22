@@ -6,3 +6,28 @@
 .App > div {
   margin-right: 50px;
 }
+
+.error{
+border: 1px solid red;
+}
+
+
+.error-message{
+  color: red;
+  size: 14px;
+}
+
+.all-bnt{
+background-color: aquamarine;
+}
+
+.active-bnt{
+  background-color: aquamarine;
+}
+
+.completed-bnt{
+  background-color: aquamarine;
+}
+.is-done {
+  opacity: 0.5;
+}

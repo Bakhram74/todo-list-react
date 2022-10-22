@@ -1,25 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {TodoList} from "./TodoList";
+import {v1} from "uuid";
+
+export type FilterValuesType = "all" | "completed" | "active"
 
 function App() {
-const tasks1 = [
-        { id: 1, title: "HTML&CSS", isDone: true },
-        { id: 2, title: "JS", isDone: true },
-        { id: 3, title: "ReactJS", isDone: false }
-    ]
-    const tasks2 = [
-        { id: 1, title: "Hello world", isDone: true },
-        { id: 2, title: "I am Happy", isDone: false },
-        { id: 3, title: "Yo", isDone: false }
-    ]
+    const [tasks, setTask] = useState([
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false},
+    ])
+    const [filter, setFilter] = useState<FilterValuesType>("all")
 
-    return(
-      <div className={'App'}>
-          <TodoList title={'What to learn'} tasks={tasks1}/>
-          <TodoList title={'Songs'} tasks={tasks2}/>
-      </div>
+    let tasksForTodoList = tasks
 
-  )
+    if (filter === "active") {
+        tasksForTodoList = tasks.filter(task => !task.isDone)
+    }
+    if (filter === "completed") {
+        tasksForTodoList = tasks.filter(task => task.isDone)
+    }
+
+    const changeFilter = (value: FilterValuesType) => {
+        setFilter(value)
+    }
+
+    const removeTask = (id: string) => {
+        setTask(tasks.filter(task => task.id !== id))
+    }
+
+    const addTask = (title: string) => {
+        let newTitle = {id: v1(), title: title, isDone: false}
+        setTask([newTitle, ...tasks])
+
+    }
+
+    const changeStatus = (id:string,isDone:boolean)=>{
+        tasks.map(t=> t.id === id ? t.isDone = isDone : t.isDone )
+
+        setTask([...tasks])
+    }
+    return (
+        <div className={'App'}>
+            <TodoList title={'What to learn'}
+                      tasks={tasksForTodoList}
+                      removeTask={removeTask}
+                      changeFilter={changeFilter}
+                      addTask={addTask}
+                      changeTaskStatus={changeStatus}
+                      filter={filter}
+            />
+        </div>
+
+    )
 }
+
 export default App;
