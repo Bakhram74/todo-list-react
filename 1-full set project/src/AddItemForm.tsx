@@ -1,4 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {IconButton, TextField} from "@mui/material";
+import {AddCircleTwoTone} from "@mui/icons-material";
 type AddItemFormPropsType = {
     addItem:(title:string)=>void
 }
@@ -26,13 +28,19 @@ const AddItemForm = (props:AddItemFormPropsType) => {
         setTitle(e.currentTarget.value)
     }
     return (
-        <div><input value={title}
+        <div><TextField value={title}
                     className={inputErr}
                     onChange={onChangeHandler}
                     onKeyPress={onKeyPressHandler}
+                        size={'small'}
+                        label={"title"}
+                        error={!!error}
+                        helperText={error && "Title is required"}
         />
-            <button onClick={addItemHandler}>+</button>
-            {error && <div className={'error-message'}>{error}</div>}
+            <IconButton color={'primary'} onClick={addItemHandler}><AddCircleTwoTone/></IconButton>
+            {error && <div className={'error-message'}>
+                {/*{error}*/}
+            </div>}
         </div>
     );
 };
