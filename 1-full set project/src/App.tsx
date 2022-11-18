@@ -6,7 +6,7 @@ import AddItemForm from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 
-type TodoListType = {
+export type TodoListType = {
     id: string,
     title: string,
     filter: FilterValuesType
@@ -43,6 +43,16 @@ function App() {
         setTodoLists(todoLists.filter(t => t.id !== todoListId))
         delete tasks[todoListId]
     }
+    const addTodoList = (title: string) => {
+        const newTodoListId = v1()
+        const newTodoList: TodoListType = {
+            id: newTodoListId,
+            title: title,
+            filter: "all"
+        }
+        setTodoLists([...todoLists, newTodoList])
+        setTask({...tasks, [newTodoListId]: []})
+    }
     const changeTodoListFilter = (value: FilterValuesType, todoListId: string) => {
         setTodoLists(todoLists.map(t => t.id === todoListId ? {...t, filter: value} : t))
     }
@@ -58,16 +68,7 @@ function App() {
         let newTitle = {id: v1(), title: title, isDone: false}
         setTask({...tasks, [todoListId]: [newTitle, ...tasks[todoListId]]})
     }
-    const addTodoList = (title: string) => {
-        const newTodoListId = v1()
-        const newTodoList: TodoListType = {
-            id: newTodoListId,
-            title: title,
-            filter: "all"
-        }
-        setTodoLists([...todoLists, newTodoList])
-        setTask({...tasks, [newTodoListId]: []})
-    }
+
     const changeTaskStatus = (id: string, isDone: boolean, todoListId: string) => {
         setTask({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === id ? {...t, isDone: isDone} : {...t})})
     }
