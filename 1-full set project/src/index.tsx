@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from "./App";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {green, purple} from "@mui/material/colors";
+import {Provider} from "react-redux";
+import {store} from "./store/store";
+import AppSimple from "./AppSimple";
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -17,8 +20,12 @@ const theme = createTheme({
 ReactDOM.render(
     <div>
         <ThemeProvider theme={theme}>
-            <App />
-            </ThemeProvider>
+            {/*<App />*/}
+            <Provider store={store}>
+                {/*<AppWithRedux/>*/}
+                <AppSimple/>
+            </Provider>
+        </ThemeProvider>
 
     </div>,
     document.getElementById('root'));

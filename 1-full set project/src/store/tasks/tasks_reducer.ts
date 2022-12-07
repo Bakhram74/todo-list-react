@@ -9,7 +9,7 @@ type ChangeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>
 type ChangeTaskTitleAT = ReturnType<typeof changeTaskTitleAC>
 
 
-type ActionsType =
+export type ActionsType =
     RemoveTaskAT |
     AddTaskAT |
     ChangeTaskStatusAT|
@@ -17,22 +17,23 @@ type ActionsType =
     AddTodoListAT|
     RemoveTodoListAT
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
+const initialState:TasksStateType = {}
+
+export const tasksReducer = (state=initialState , action: ActionsType): TasksStateType => {
+
     switch (action.type) {
         case "REMOVE-TASK": {
             return {
-                ...state, [action.todoListId]: state[action.todoListId].filter(task => task.id != action.taskId)
+                ...state, [action.todoListId]: state[action.todoListId].filter(task => task.id !== action.taskId)
             }
         }
         case "ADD-TASK": {
-            const newTask = {
-                id: v1(),
-                title: action.taskTitle,
-                isDone: false
-            }
-            return {
-                ...state, [action.todoListId]: [...state[action.todoListId], newTask]
-            }
+            const newTask = {id: v1(), title: action.taskTitle, isDone: false}
+            const stateCopy = {...state}
+            const tasks = stateCopy[action.todoListId]
+            const newTasks = [newTask,...tasks]
+            stateCopy[action.todoListId] = newTasks
+            return stateCopy
         }
         case "CHANGE-TASK-STATUS": {
             return {
@@ -54,7 +55,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
             return state
         }
         default:
-            throw new Error('error')
+         return   state
 
     }
 
