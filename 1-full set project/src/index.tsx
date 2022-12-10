@@ -5,7 +5,7 @@ import {createTheme, ThemeProvider} from "@mui/material";
 import {green, purple} from "@mui/material/colors";
 import {Provider} from "react-redux";
 import {store} from "./store/store";
-import AppSimple from "./AppSimple";
+import AppWithRedux from "./AppWithRedux";
 
 const theme = createTheme({
     palette: {
@@ -22,8 +22,8 @@ ReactDOM.render(
         <ThemeProvider theme={theme}>
             {/*<App />*/}
             <Provider store={store}>
-                {/*<AppWithRedux/>*/}
-                <AppSimple/>
+                <AppWithRedux/>
+                {/*<AppSimple/>*/}
             </Provider>
         </ThemeProvider>
 

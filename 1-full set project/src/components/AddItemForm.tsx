@@ -1,10 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
 import {AddCircleTwoTone} from "@mui/icons-material";
 type AddItemFormPropsType = {
     addItem:(title:string)=>void
 }
-const AddItemForm = (props:AddItemFormPropsType) => {
+const AddItemForm = memo((props:AddItemFormPropsType) => {
+    console.log('addItemForm')
     const [title, setTitle] = useState("")
     const [error, setError] = useState("")
     const inputErr = error ? 'error' : ""
@@ -38,11 +39,11 @@ const AddItemForm = (props:AddItemFormPropsType) => {
                         helperText={error && "Title is required"}
         />
             <IconButton color={'primary'} onClick={addItemHandler}><AddCircleTwoTone/></IconButton>
-            {error && <div className={'error-message'}>
-                {/*{error}*/}
-            </div>}
+            {/*{error && <div className={'error-message'}>*/}
+            {/*    /!*{error}*!/*/}
+            {/*</div>}*/}
         </div>
     );
-};
+})
 
 export default AddItemForm;
