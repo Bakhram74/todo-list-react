@@ -1,12 +1,12 @@
 import React, {ChangeEvent, memo, useCallback} from "react";
 
 import './App.css'
-import AddItemForm from "./components/AddItemForm";
-import EditableSpan from "./components/EditableSpan";
+import AddItemForm from "./components/add-item-form/AddItemForm";
+import EditableSpan from "./components/editable-span/EditableSpan";
 import {Button, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import {HighlightOffTwoTone} from "@mui/icons-material";
-import {FilterValuesType} from "./AppWithRedux";
-import Task from "./components/Task";
+import {FilterValuesType} from "./App";
+import Task from "./components/task/Task";
 
 export type TaskType = {
     id: string
@@ -28,7 +28,6 @@ type TodoListType = {
     changeTodoListTitle: (newTitle: string, todoListId: string) => void
 }
 export const TodoList = memo((props: TodoListType) => {
-    console.log("Todolist called")
 
     let tasksForTodoList = props.tasks
     if (props.filter === 'active') {

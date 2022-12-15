@@ -15,8 +15,8 @@ beforeEach(()=>{
     todoListId_1 = v1()
     todoListId_2 = v1()
     StartState = [
-        {id: todoListId_1, title: "What to learn", filter: 'all'},
-        {id: todoListId_2, title: "What to buy", filter: 'all'}
+        {todoListId: todoListId_1, title: "What to learn", filter: 'all'},
+        {todoListId: todoListId_2, title: "What to buy", filter: 'all'}
     ]
 })
 
@@ -26,7 +26,7 @@ test('Correct todolist should be removed',()=>{
     const EndState = todoListsReducer(StartState,removeTodoListAC(todoListId_1))
     expect(EndState.length).toBe(1)
     expect(EndState[0].title).toBe("What to buy")
-    expect(EndState[0].id).toBe(todoListId_2)
+    expect(EndState[0].todoListId).toBe(todoListId_2)
 
 })
 
@@ -90,7 +90,7 @@ test('ids should be equals', () => {
 
     const keys = Object.keys(endTasksState)
     const idFromTasks = keys[0]
-    const idFromTodoLists = endTodoListsState[0].id
+    const idFromTodoLists = endTodoListsState[0].todoListId
 
     expect(idFromTasks).toBe(action.todoListId)
     expect(idFromTodoLists).toBe(action.todoListId)
