@@ -5,6 +5,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
 import {appReducer} from './app-reducer'
 import {authReducer} from "../features/Login/auth-reducer";
+import {configureStore} from "@reduxjs/toolkit";
 
 
 // объединяя reducer-ы с помощью combineReducers,
@@ -13,10 +14,18 @@ const rootReducer = combineReducers({
     tasks: tasksReducer,
     todolists: todolistsReducer,
     app: appReducer,
-    auth:authReducer
+    auth: authReducer
 })
 // непосредственно создаём store
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
+// export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export const store = configureStore({
+        reducer: rootReducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware()
+                .prepend(
+                    thunkMiddleware)
+    },
+)
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<typeof rootReducer>
 // создаем тип диспатча который принимает как AC так и TC
