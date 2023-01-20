@@ -1,4 +1,4 @@
-import {tasksReducer} from '../features/TodolistsList/tasks-reducer';
+import {tasksReducer} from '../features/TodolistsList/Task/tasks-reducer';
 import {todolistsReducer} from '../features/TodolistsList/todolists-reducer';
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'redux'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer
 })
-// непосредственно создаём store
+
 // export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 export const store = configureStore({
         reducer: rootReducer,
@@ -26,7 +26,7 @@ export const store = configureStore({
                     thunkMiddleware)
     },
 )
-// определить автоматически тип всего объекта состояния
+
 export type AppRootStateType = ReturnType<typeof rootReducer>
 // создаем тип диспатча который принимает как AC так и TC
 export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>

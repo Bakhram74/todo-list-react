@@ -1,7 +1,7 @@
 import {todolistsAPI, TodolistType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
 import {RequestStatusType, setAppStatusAC,} from '../../app/app-reducer'
-import {fetchTasksTC} from "./tasks-reducer";
+import {fetchTasksTC} from "./Task/tasks-reducer";
 import {AppThunkDispatch} from "../../app/store";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
@@ -22,7 +22,7 @@ const slice = createSlice({
                 state.splice(index, 1)
         },
         addTodolistAC(state, action: PayloadAction<{ todolist: TodolistType }>) {
-            state.push({...action.payload.todolist,filter:'all',entityStatus: 'idle'})
+            state.unshift({...action.payload.todolist,filter:'all',entityStatus: 'idle'})
         },
         changeTodolistTitleAC(state, action: PayloadAction<{ id: string, title: string }>) {
        // const newState = state.map(tl => tl.id === action.payload.id ? {...tl, title: action.payload.title} : tl)
@@ -50,7 +50,8 @@ const slice = createSlice({
     }
 })
  export const todolistsReducer = slice.reducer
-export const {removeTodolistAC,
+export const {
+    removeTodolistAC,
     addTodolistAC,
     changeTodolistTitleAC,
     changeTodolistFilterAC,
@@ -109,19 +110,7 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
     }
 }
 
-// types
-// export type AddTodolistActionType = ReturnType<typeof addTodolistAC>;
-// export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>;
-// export type SetTodolistsActionType = ReturnType<typeof setTodolistsAC>;
-// export type ClearDataActionType = ReturnType<typeof clearDataAC>;
-// type ActionsType =
-//     | RemoveTodolistActionType
-//     | AddTodolistActionType
-//     | ReturnType<typeof changeTodolistTitleAC>
-//     | ReturnType<typeof changeTodolistFilterAC>
-//     | SetTodolistsActionType
-//     | ReturnType<typeof changeTodolistEntityStatusAC>
-//     | ClearDataActionType
+
 
 
 

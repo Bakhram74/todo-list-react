@@ -4,10 +4,10 @@ import {EditableSpan} from '../../../components/EditableSpan/EditableSpan'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
-import {Task} from './Task/Task'
+import {Task} from '../Task/Task'
 import {TaskStatuses, TaskType} from '../../../api/todolists-api'
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer'
-import {fetchTasksTC} from '../tasks-reducer'
+import {fetchTasksTC} from '../Task/tasks-reducer'
 import {useAppDispatch} from "../../../app/store";
 
 type PropsType = {
@@ -23,7 +23,6 @@ type PropsType = {
 }
 
 export const Todolist = React.memo(function ({...props}: PropsType) {
-    console.log('Todolist called')
 
     // const dispatch = useAppDispatch()
     // useEffect(() => {
